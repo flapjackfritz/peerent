@@ -7,13 +7,13 @@ export const PeerPost = ({ name, body, comments, responses }) => {
   return (
     <Grid
       rows={["xxsmall", "flex", "flex"]}
-      columns={["xxsmall", "flex", "flex"]}
+      columns={["xxsmall", "flex"]}
       gap="xsmall"
       areas={[
-        { name: "header", start: [0, 0], end: [2, 0] },
+        { name: "header", start: [0, 0], end: [1, 0] },
         { name: "nav", start: [0, 1], end: [0, 1] },
-        { name: "main", start: [1, 1], end: [2, 1] },
-        { name: "comments", start: [0, 2], end: [2, 2] },
+        { name: "main", start: [1, 1], end: [1, 1] },
+        { name: "comments", start: [0, 2], end: [1, 2] },
       ]}
       margin={{ vertical: "small" }}
     >
