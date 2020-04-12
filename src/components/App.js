@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppBar, PeersFeed, SideBar } from "./";
+import { FeedDatabase } from "../database";
 import {
   Box,
   Button,
@@ -9,7 +10,6 @@ import {
   ResponsiveContext,
 } from "grommet";
 import { Menu } from "grommet-icons";
-
 const theme = {
   global: {
     colors: {
@@ -25,23 +25,24 @@ const theme = {
 
 function App() {
   const [showSideBar, setShowSideBar] = useState(false);
-  const body =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquamfacilisis porttitor orci sit amet semper. Nulla laoreet diam nec lacusporta faucibus a nec ipsum. Vestibulum rhoncus diam eget loremplacerat iaculis. Vestibulum condimentum arcu eget libero commodo, etfinibus erat rhoncus. Praesent id pharetra nisl. Suspendisse nec exvel libero aliquam luctus vitae ornare tellus. Integer non facilisisipsum, venenatis posuere risus. Praesent posuere augue ac lectusfinibus interdum. Donec fermentum nulla at odio aliquam blandit.Aenean luctus egestas eleifend. Nullam scelerisque malesuada augue, utposuere sem luctus vitae. Phasellus eu felis tellus. Donec sed lorempretium mi lobortis laoreet eu ut nunc. Mauris non fermentum diam.";
-  const comments = [
-    { name: "Kelly", body: "Varius sit amet mattis vulputate enim. " },
-    {
-      name: "Scott",
-      body:
-        "Diam in arcu cursus euismod quis viverra. Pretium vulputate sapien nec sagittis.",
-    },
-    {
-      name: "Robert",
-      body:
-        "Phasellus eu felis tellus. Donec sed lorempretium mi lobortis laoreet eu ut nunc.",
-    },
-  ];
-  const peerPost = { name: "Tommy", body, comments };
-  const peerPosts = [peerPost, peerPost, peerPost];
+  const [myFeed, setMyFeed] = useState([]);
+
+  useEffect(() => {
+    const loadedFeed = FeedDatabase.loadMyFeed();
+    const orderedFeed = Object.keys(loadedFeed)
+      .sort()
+      .map((feedKey) => loadedFeed[feedKey]);
+    setMyFeed(orderedFeed);
+  }, []);
+
+  const postToFeed = function postToFeedAndStore(post) {
+    const updatedFeed = FeedDatabase.postToFeed(post);
+    const orderedFeed = Object.keys(updatedFeed)
+      .sort()
+      .map((feedKey) => updatedFeed[feedKey]);
+    setMyFeed(orderedFeed);
+  };
+
   return (
     <Grommet theme={theme} full>
       <ResponsiveContext.Consumer>
@@ -57,10 +58,11 @@ function App() {
               />
             </AppBar>
             <Main flex direction="row" justify="around" background="light-1">
-              <Box align="center" margin="medium">
-                <PeersFeed peerPosts={peerPosts} />
+              <Box id="asdf" fill="horizontal" align="center" margin="medium">
+                <PeersFeed peerPosts={myFeed} />
               </Box>
               <SideBar
+                postToFeed={postToFeed}
                 setShowSideBar={setShowSideBar}
                 showSideBar={showSideBar}
                 size={size}

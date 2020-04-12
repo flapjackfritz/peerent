@@ -3,9 +3,9 @@ import { NewPost, Identity } from "./";
 import { Box, Button, Layer } from "grommet";
 import { FormClose } from "grommet-icons";
 
-export const SideBar = ({ showSideBar, setShowSideBar, size }) => {
+export const SideBar = ({ postToFeed, showSideBar, setShowSideBar, size }) => {
   const handleSubmit = function handleSubmitPost({ value }) {
-    console.log(value);
+    if (value !== "") postToFeed({ name: "Tommy Fritz", body: value });
   };
 
   const hideSideBar = function hideSideBar() {

@@ -5,7 +5,10 @@ import AppFailed from "./components/AppFailed";
 import * as serviceWorker from "./serviceWorker";
 import webTorrentClient from "./webtorrent/client";
 
-window.test = webTorrentClient;
+// BEGIN TEST AREA
+
+// END TEST AREA
+
 if (webTorrentClient) {
   ReactDOM.render(<App />, document.getElementById("root"));
 } else {

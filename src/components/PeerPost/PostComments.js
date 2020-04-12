@@ -9,6 +9,9 @@ export const PostComments = ({ comments, ...rest }) => {
   const toggleSidebar = function handleToggleSidebar() {
     setShowComments(!showComments);
   };
+  const orderedComments = Object.keys(comments).map(
+    (commentId) => comments[commentId]
+  );
 
   return (
     <Box {...rest}>
@@ -31,7 +34,7 @@ export const PostComments = ({ comments, ...rest }) => {
       </Box>
       <Collapsible direction="vertical" open={showComments}>
         <Grid rows="auto" columns={["auto"]}>
-          {comments.map((comment) => (
+          {orderedComments.map((comment) => (
             <PostComment key={comment.name} comment={comment} />
           ))}
         </Grid>
