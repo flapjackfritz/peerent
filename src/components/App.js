@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AppBar, PeersFeed, SideBar } from "./";
-import { FeedDatabase } from "../database";
+import { FeedDatabase, IdentityDatabase } from "../database";
 import {
   Box,
   Button,
@@ -26,12 +26,15 @@ const theme = {
 function App() {
   const [showSideBar, setShowSideBar] = useState(false);
   const [myFeed, setMyFeed] = useState([]);
+  const [myIdentity, setMyIdentity] = useState([]);
 
   useEffect(() => {
     const loadedFeed = FeedDatabase.loadMyFeed();
     const orderedFeed = Object.keys(loadedFeed)
       .sort()
       .map((feedKey) => loadedFeed[feedKey]);
+    const myIdentity = IdentityDatabase.getMyIdentity();
+    setMyIdentity(myIdentity);
     setMyFeed(orderedFeed);
   }, []);
 
@@ -41,6 +44,11 @@ function App() {
       .sort()
       .map((feedKey) => updatedFeed[feedKey]);
     setMyFeed(orderedFeed);
+  };
+
+  const updateIdentity = function saveIdentityUpdate(identity) {
+    const updatedIdentity = IdentityDatabase.updateMyIdentity(identity);
+    setMyIdentity(updatedIdentity);
   };
 
   return (
@@ -62,7 +70,9 @@ function App() {
                 <PeersFeed peerPosts={myFeed} />
               </Box>
               <SideBar
+                identity={myIdentity}
                 postToFeed={postToFeed}
+                updateIdentity={updateIdentity}
                 setShowSideBar={setShowSideBar}
                 showSideBar={showSideBar}
                 size={size}

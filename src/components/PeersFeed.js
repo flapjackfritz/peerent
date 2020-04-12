@@ -11,9 +11,8 @@ export const PeersFeed = ({ peerPosts }) => {
     );
   return peerPosts.map((peerPost) => {
     return (
-      <Box fill="horizontal">
+      <Box fill="horizontal" key={peerPost.timestamp}>
         <PeerPost
-          key={peerPost.timestamp}
           name={peerPost.name}
           body={peerPost.body}
           responses=""

@@ -1,5 +1,4 @@
 import WebTorrent from "webtorrent";
-import { peerPosts } from "../mocks";
 
 let client;
 

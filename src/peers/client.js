@@ -1,5 +1,5 @@
 export const identity = {
-  friends: [],
+  peers: [],
   myPeerFeed: [],
   myMutualsFeeds: [],
 };

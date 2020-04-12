@@ -1,15 +1,6 @@
 import { KEYS } from "./keys";
 import { getTimestamp } from "../util";
-
-const localStorageObjects = Object.freeze({
-  save: function saveToStorage(key, obj) {
-    return localStorage.setItem(key, JSON.stringify(obj));
-  },
-  load: function loadFromStorage(key) {
-    const loadedObj = localStorage.getItem(key) ?? "{}";
-    return JSON.parse(loadedObj);
-  },
-});
+import { localStorageObjects } from "./";
 
 export const FeedDatabase = {
   postToFeed: function postToFeed(post) {

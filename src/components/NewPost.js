@@ -3,16 +3,16 @@ import { Box, Form, FormField, Button, TextArea } from "grommet";
 
 export const NewPost = ({ handler }) => {
   const [value, setValue] = React.useState("");
-  const handleSubmit = function handleSubmitWriting() {
+  const handleSubmit = function handleSubmitPost() {
     handler({ value });
     setValue("");
   };
-  const handleChange = function handleChangeWriting({ target: { value } }) {
+  const handleChange = function handleChangePost({ target: { value } }) {
     setValue(value);
   };
 
   return (
-    <Box background="light-2" flex align="center" justify="center">
+    <Box flex align="center">
       <Form onReset={() => setValue("")} onSubmit={handleSubmit}>
         <FormField name="write" label="Write">
           <TextArea
@@ -22,7 +22,12 @@ export const NewPost = ({ handler }) => {
           />
         </FormField>
         <Box direction="row" gap="medium">
-          <Button type="submit" primary label="Submit" />
+          <Button
+            disabled={value === ""}
+            type="submit"
+            primary
+            label="Submit"
+          />
           <Button type="reset" label="Reset" />
         </Box>
       </Form>
