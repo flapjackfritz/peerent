@@ -22,6 +22,7 @@ export const SideBar = ({
     <Box width="medium" margin="medium" pad="medium" background="light-2">
       <Identity
         name={identity.name}
+        addPeer={identity.addPeer}
         identityKey={identity.key}
         updateIdentity={updateIdentity}
         magnetURI={identity.magnetURI}

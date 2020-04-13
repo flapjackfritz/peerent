@@ -23,18 +23,15 @@ const theme = {
   },
 };
 
-function App() {
+function App({ identityStore }) {
   const [showSideBar, setShowSideBar] = useState(false);
   const [myFeed, setMyFeed] = useState([]);
-  const [myIdentity, setMyIdentity] = useState([]);
 
   useEffect(() => {
     const loadedFeed = FeedDatabase.loadMyFeed();
     const orderedFeed = Object.keys(loadedFeed)
       .sort()
       .map((feedKey) => loadedFeed[feedKey]);
-    const myIdentity = IdentityDatabase.getMyIdentity();
-    setMyIdentity(myIdentity);
     setMyFeed(orderedFeed);
   }, []);
 
@@ -47,8 +44,7 @@ function App() {
   };
 
   const updateIdentity = function saveIdentityUpdate(identity) {
-    const updatedIdentity = IdentityDatabase.updateMyIdentity(identity);
-    setMyIdentity(updatedIdentity);
+    IdentityDatabase.updateMyIdentity(identity);
   };
 
   return (
@@ -60,6 +56,7 @@ function App() {
               <Heading level="3" margin="none">
                 Peerent
               </Heading>
+              <div id="temp" />
               <Button
                 icon={<Menu />}
                 onClick={() => setShowSideBar(!showSideBar)}
@@ -70,7 +67,7 @@ function App() {
                 <PeersFeed peerPosts={myFeed} />
               </Box>
               <SideBar
-                identity={myIdentity}
+                identity={identityStore}
                 postToFeed={postToFeed}
                 updateIdentity={updateIdentity}
                 setShowSideBar={setShowSideBar}

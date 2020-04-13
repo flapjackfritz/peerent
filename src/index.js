@@ -6,11 +6,14 @@ import * as serviceWorker from "./serviceWorker";
 import webTorrentClient from "./webtorrent/client";
 import { IdentityStore } from "./webtorrent";
 // BEGIN TEST AREA
-const identityStore = new IdentityStore();
 // END TEST AREA
+const identityStore = new IdentityStore();
 
 if (webTorrentClient) {
-  ReactDOM.render(<App />, document.getElementById("root"));
+  ReactDOM.render(
+    <App identityStore={identityStore} />,
+    document.getElementById("root")
+  );
 } else {
   ReactDOM.render(<AppFailed />, document.getElementById("root"));
 }

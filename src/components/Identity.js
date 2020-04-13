@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Box, Button, Form, FormField, Layer, Text, TextInput } from "grommet";
-import { View } from "grommet-icons";
+import { View, UserAdd } from "grommet-icons";
 
-export const Identity = ({ name, identityKey, updateIdentity, magnetURI }) => {
+export const Identity = ({
+  name,
+  identityKey,
+  updateIdentity,
+  magnetURI,
+  addPeer,
+}) => {
   const [value, setValue] = useState("");
   const handleSubmit = function handleSubmitName() {
     if (value !== "") {
@@ -14,7 +20,24 @@ export const Identity = ({ name, identityKey, updateIdentity, magnetURI }) => {
     setValue(value);
   };
 
+  const [peerValue, setPeerValue] = useState("");
+  const handleChangePeer = function handleChangePeer({ target: { value } }) {
+    setPeerValue(value);
+  };
+  const handleAddPeer = function handleAddPeer() {
+    if (peerValue !== "") {
+      addPeer(peerValue);
+      setPeerValue("");
+      setShowAddPeer(false);
+    }
+  };
+  const resetHandlePeer = function resetHandlePeer() {
+    setPeerValue("");
+    setShowAddPeer(false);
+  };
+
   const [showKey, setShowKey] = React.useState(false);
+  const [showAddPeer, setShowAddPeer] = React.useState(false);
 
   return (
     <Box flex align="center">
@@ -36,13 +59,47 @@ export const Identity = ({ name, identityKey, updateIdentity, magnetURI }) => {
             </Box>
           </Layer>
         )}
-
         <Button
           onClick={() => setShowKey(true)}
           icon={<View />}
           label="Identity Key"
         />
       </Box>
+      <Box pad="small">
+        {showAddPeer && (
+          <Layer
+            onEsc={() => setShowAddPeer(false)}
+            onClickOutside={() => setShowAddPeer(false)}
+          >
+            <Box margin="medium">
+              <Form onReset={resetHandlePeer} onSubmit={handleAddPeer}>
+                <FormField name="name">
+                  <TextInput
+                    placeholder="Paste MagnetURI here"
+                    value={peerValue}
+                    onChange={handleChangePeer}
+                  />
+                </FormField>
+                <Box direction="row" gap="medium">
+                  <Button
+                    disabled={peerValue === ""}
+                    type="submit"
+                    primary
+                    label="Submit"
+                  />
+                  <Button type="reset" label="Reset" />
+                </Box>
+              </Form>
+            </Box>
+          </Layer>
+        )}
+        <Button
+          onClick={() => setShowAddPeer(true)}
+          icon={<UserAdd />}
+          label="Add Peer"
+        />
+      </Box>
+
       <Form onReset={() => setValue("")} onSubmit={handleSubmit}>
         <FormField name="name">
           <TextInput
