@@ -10,8 +10,8 @@
     "grommet-icons": "^4.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "./lib/create-react-app/packages/react-scripts",
-    "webtorrent": "./lib/webtorrent",
+    "react-scripts": "3.4.1",
+    "webtorrent": "flapjackfritz/webtorrent#webpack-conversion",
     "styled-components": "^5.1.0"
   },
   "scripts": {
