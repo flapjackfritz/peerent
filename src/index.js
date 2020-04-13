@@ -4,9 +4,9 @@ import App from "./components/App";
 import AppFailed from "./components/AppFailed";
 import * as serviceWorker from "./serviceWorker";
 import webTorrentClient from "./webtorrent/client";
-
+import { IdentityStore } from "./webtorrent";
 // BEGIN TEST AREA
-
+const identityStore = new IdentityStore();
 // END TEST AREA
 
 if (webTorrentClient) {

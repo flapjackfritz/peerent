@@ -24,6 +24,7 @@ export const SideBar = ({
         name={identity.name}
         identityKey={identity.key}
         updateIdentity={updateIdentity}
+        magnetURI={identity.magnetURI}
       />
       <NewPost handler={handleSubmit} />
     </Box>

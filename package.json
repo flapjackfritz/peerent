@@ -10,12 +10,12 @@
     "grommet-icons": "^4.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1",
-    "styled-components": "^5.1.0",
-    "webtorrent": "^0.108.1"
+    "react-scripts": "./lib/create-react-app/packages/react-scripts",
+    "webtorrent": "./lib/webtorrent",
+    "styled-components": "^5.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HTTPS=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

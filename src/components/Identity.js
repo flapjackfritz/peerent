@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Form, FormField, Layer, Text, TextInput } from "grommet";
 import { View } from "grommet-icons";
 
-export const Identity = ({ name, identityKey, updateIdentity }) => {
+export const Identity = ({ name, identityKey, updateIdentity, magnetURI }) => {
   const [value, setValue] = useState("");
   const handleSubmit = function handleSubmitName() {
     if (value !== "") {
@@ -27,6 +27,7 @@ export const Identity = ({ name, identityKey, updateIdentity }) => {
           >
             <Box margin="medium">
               <Text>Your Identity: {identityKey}</Text>
+              <Text>MagnetURI: {magnetURI}</Text>
               <Button
                 margin="small"
                 label="close"

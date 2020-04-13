@@ -12,8 +12,10 @@ export const IdentityDatabase = Object.freeze({
   updateMyIdentity: function updateMyIdentity(updatedIdentity) {
     if (!updatedIdentity || typeof updatedIdentity !== "object")
       throw new Error("You didn't provide an updated identity");
+
+    // prevent updating the key
     if (Object.prototype.hasOwnProperty.call(updatedIdentity, "key"))
-      throw new Error("You cannot update your identity key");
+      delete updatedIdentity.key;
 
     const myIdentity = this.getMyIdentity();
     const newIdentity = { ...myIdentity, ...updatedIdentity };
